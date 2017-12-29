@@ -72,6 +72,8 @@ class CompactCalendarController {
     private float distanceX;
     private long lastAutoScrollFromFling;
 
+    private float customCompensation = 0;
+
     private boolean useThreeLetterAbbreviation = false;
     private boolean isSmoothScrolling;
     private boolean isScrolling;
@@ -165,6 +167,9 @@ class CompactCalendarController {
                 currentSelectedDayIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_selectedDayIndicatorStyle, FILL_LARGE_INDICATOR);
                 displayOtherMonthDays = typedArray.getBoolean(R.styleable.CompactCalendarView_displayOtherMonthDays, displayOtherMonthDays);
                 shouldSelectFirstDayOfMonthOnScroll = typedArray.getBoolean(R.styleable.CompactCalendarView_shouldSelectFirstDayOfMonthOnScroll, shouldSelectFirstDayOfMonthOnScroll);
+
+                customCompensation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, context.getResources().getDisplayMetrics());
+
             } finally {
                 typedArray.recycle();
             }
@@ -889,11 +894,11 @@ class CompactCalendarController {
                 dayPaint.setTextSize(daysTextSize);
 
                 if (currentCalendar.get(Calendar.DAY_OF_MONTH) == day && isSameMonthAsCurrentCalendar && !isAnimatingWithExpose) {
-                    drawDayCircleIndicator(currentSelectedDayIndicatorStyle, canvas, xPosition, yPosition, currentSelectedDayBackgroundColor);
+                    drawDayCircleIndicator(currentSelectedDayIndicatorStyle, canvas, xPosition - customCompensation, yPosition - (customCompensation * 2), currentSelectedDayBackgroundColor);
                     defaultCalendarTextColorToUse = currentSelectedDayTextColor;
                 } else if (isSameYearAsToday && isSameMonthAsToday && todayDayOfMonth == day && !isAnimatingWithExpose) {
                     // TODO calculate position of circle in a more reliable way
-                    drawDayCircleIndicator(currentDayIndicatorStyle, canvas, xPosition, yPosition, currentDayBackgroundColor);
+                    drawDayCircleIndicator(currentDayIndicatorStyle, canvas, xPosition - customCompensation, yPosition - (customCompensation * 2), currentDayBackgroundColor);
                     defaultCalendarTextColorToUse = currentDayTextColor;
                 }
                 if (day <= 0) {
@@ -941,9 +946,9 @@ class CompactCalendarController {
         dayPaint.setColor(color);
         if (animationStatus == ANIMATE_INDICATORS) {
             float maxRadius = circleScale * bigCircleIndicatorRadius * 1.4f;
-            drawCircle(canvas, growfactorIndicator > maxRadius ? maxRadius: growfactorIndicator, x, y - (textHeight / 6));
+            drawCircle(canvas, growfactorIndicator > maxRadius ? maxRadius: growfactorIndicator, x + customCompensation, y - (textHeight / 6) + customCompensation);
         } else {
-            drawCircle(canvas, circleScale * bigCircleIndicatorRadius, x, y - (textHeight / 6));
+            drawCircle(canvas, circleScale * bigCircleIndicatorRadius, x + customCompensation, y - (textHeight / 6) + customCompensation);
         }
     }
 
