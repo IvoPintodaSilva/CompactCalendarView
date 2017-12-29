@@ -34,7 +34,6 @@ import java.util.TimeZone;
 public class CompactCalendarTab extends Fragment {
 
     private static final String TAG = "MainActivity";
-    private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private boolean shouldShow = false;
@@ -52,8 +51,6 @@ public class CompactCalendarTab extends Fragment {
         final Button showNextMonthBut = (Button) v.findViewById(R.id.next_button);
         final Button slideCalendarBut = (Button) v.findViewById(R.id.slide_calendar);
         final Button showCalendarWithAnimationBut = (Button) v.findViewById(R.id.show_with_animation_calendar);
-        final Button setLocaleBut = (Button) v.findViewById(R.id.set_locale);
-        final Button removeAllEventsBut = (Button) v.findViewById(R.id.remove_all_events);
 
         final ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mutableBookings);
         bookingsListView.setAdapter(adapter);
@@ -65,24 +62,7 @@ public class CompactCalendarTab extends Fragment {
         // compactCalendarView.setCurrentSelectedDayBackgroundColor(getResources().getColor(R.color.dark_red));
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
-
-        //loadEvents();
-        //loadEventsForYear(2017);
         compactCalendarView.invalidate();
-
-        logEventsByMonth(compactCalendarView);
-
-        // below line will display Sunday as the first day of the week
-        // compactCalendarView.setShouldShowMondayAsFirstDay(false);
-
-        // disable scrolling calendar
-        // compactCalendarView.shouldScrollMonth(false);
-
-        // show days from other months as greyed out days
-        // compactCalendarView.displayOtherMonthDays(true);
-
-        // show Sunday as first day of month
-        // compactCalendarView.setShouldShowMondayAsFirstDay(false);
 
         //set initial title
         toolbar = ((ActionBarActivity) getActivity()).getSupportActionBar();
@@ -142,37 +122,6 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        setLocaleBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Locale locale = Locale.FRANCE;
-                dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", locale);
-                TimeZone timeZone = TimeZone.getTimeZone("Europe/Paris");
-                dateFormatForDisplaying.setTimeZone(timeZone);
-                dateFormatForMonth.setTimeZone(timeZone);
-                compactCalendarView.setLocale(timeZone, locale);
-                compactCalendarView.setUseThreeLetterAbbreviation(false);
-                loadEvents();
-                loadEventsForYear(2017);
-                logEventsByMonth(compactCalendarView);
-
-            }
-        });
-
-        removeAllEventsBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                compactCalendarView.removeAllEvents();
-            }
-        });
-
-
-        // uncomment below to show indicators above small indicator events
-        // compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
-
-        // uncomment below to open onCreate
-        //openCalendarOnCreate(v);
-
         return v;
     }
 
@@ -210,95 +159,11 @@ public class CompactCalendarTab extends Fragment {
         };
     }
 
-    private void openCalendarOnCreate(View v) {
-        final RelativeLayout layout = (RelativeLayout)v.findViewById(R.id.main_content);
-        ViewTreeObserver vto = layout.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < 16) {
-                    layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                compactCalendarView.showCalendarWithAnimation();
-            }
-        });
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         // Set to current day on resume to set calendar to latest day
         // toolbar.setTitle(dateFormatForMonth.format(new Date()));
-    }
-
-    private void loadEvents() {
-        addEvents(-1, -1);
-        addEvents(Calendar.DECEMBER, -1);
-        addEvents(Calendar.AUGUST, -1);
-    }
-
-    private void loadEventsForYear(int year) {
-        addEvents(Calendar.DECEMBER, year);
-        addEvents(Calendar.AUGUST, year);
-    }
-
-    private void logEventsByMonth(CompactCalendarView compactCalendarView) {
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        currentCalender.set(Calendar.MONTH, Calendar.AUGUST);
-        List<String> dates = new ArrayList<>();
-        for (Event e : compactCalendarView.getEventsForMonth(new Date())) {
-            dates.add(dateFormatForDisplaying.format(e.getTimeInMillis()));
-        }
-        Log.d(TAG, "Events for Aug with simple date formatter: " + dates);
-        Log.d(TAG, "Events for Aug month using default local and timezone: " + compactCalendarView.getEventsForMonth(currentCalender.getTime()));
-    }
-
-    private void addEvents(int month, int year) {
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-        for (int i = 0; i < 6; i++) {
-            currentCalender.setTime(firstDayOfMonth);
-            if (month > -1) {
-                currentCalender.set(Calendar.MONTH, month);
-            }
-            if (year > -1) {
-                currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
-                currentCalender.set(Calendar.YEAR, year);
-            }
-            currentCalender.add(Calendar.DATE, i);
-            setToMidnight(currentCalender);
-            long timeInMillis = currentCalender.getTimeInMillis();
-
-            List<Event> events = getEvents(timeInMillis, i);
-
-            compactCalendarView.addEvents(events);
-        }
-    }
-
-    private List<Event> getEvents(long timeInMillis, int day) {
-        if (day < 2) {
-            return Arrays.asList(new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)));
-        } else if ( day > 2 && day <= 4) {
-            return Arrays.asList(
-                    new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
-                    new Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)));
-        } else {
-            return Arrays.asList(
-                    new Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis) ),
-                    new Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)),
-                    new Event(Color.argb(255, 70, 68, 65), timeInMillis, "Event 3 at " + new Date(timeInMillis)));
-        }
-    }
-
-    private void setToMidnight(Calendar calendar) {
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
     }
 }
