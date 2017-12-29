@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="compactCalendarEventIndicatorStyle" format="enum">
+
+    <attr name="eventIndicatorStyle" format="enum">
         <enum name="fill_large_indicator" value="1" />
         <enum name="no_fill_large_indicator" value="2" />
         <enum name="small_indicator" value="3" />
     </attr>
-    <attr name="compactCalendarCurrentDayIndicatorStyle" format="enum">
+
+    <attr name="currentDayIndicatorStyle" format="enum">
         <enum name="fill_large_indicator" value="1" />
         <enum name="no_fill_large_indicator" value="2" />
     </attr>
-    <attr name="compactCalendarCurrentSelectedDayIndicatorStyle" format="enum">
+
+    <attr name="selectedDayIndicatorStyle" format="enum">
         <enum name="fill_large_indicator" value="1" />
         <enum name="no_fill_large_indicator" value="2" />
     </attr>
+
     <declare-styleable name="CompactCalendarView">
-        <attr name="compactCalendarTextSize" format="dimension"/>
-        <attr name="compactCalendarBackgroundColor" format="color"/>
-        <attr name="compactCalendarCurrentDayBackgroundColor" format="color"/>
-        <attr name="compactCalendarCurrentDayTextColor" format="color"/>
-        <attr name="compactCalendarCurrentSelectedDayBackgroundColor" format="color"/>
-        <attr name="compactCalendarCurrentSelectedDayTextColor" format="color"/>
-        <attr name="compactCalendarTextColor" format="color"/>
-        <attr name="compactCalendarMultiEventIndicatorColor" format="color"/>
-        <attr name="compactCalendarTargetHeight" format="dimension"/>
-        <attr name="compactCalendarEventIndicatorStyle"/>
-        <attr name="compactCalendarCurrentDayIndicatorStyle"/>
-        <attr name="compactCalendarCurrentSelectedDayIndicatorStyle"/>
-        <attr name="compactCalendarDisplayOtherMonthDays" format="boolean"/>
-        <attr name="compactCalendarShouldSelectFirstDayOfMonthOnScroll" format="boolean"/>
-        <attr name="compactCalendarOtherMonthDaysTextColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="currentDayBackgroundColor" format="color"/>
+        <attr name="currentDayTextColor" format="color"/>
+        <attr name="selectedDayBackgroundColor" format="color"/>
+        <attr name="selectedDayTextColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="multiEventIndicatorColor" format="color"/>
+        <attr name="targetHeight" format="dimension"/>
+        <attr name="eventIndicatorStyle"/>
+        <attr name="currentDayIndicatorStyle"/>
+        <attr name="selectedDayIndicatorStyle"/>
+        <attr name="displayOtherMonthDays" format="boolean"/>
+        <attr name="shouldSelectFirstDayOfMonthOnScroll" format="boolean"/>
+        <attr name="otherMonthDaysTextColor" format="color"/>
     </declare-styleable>
 </resources>

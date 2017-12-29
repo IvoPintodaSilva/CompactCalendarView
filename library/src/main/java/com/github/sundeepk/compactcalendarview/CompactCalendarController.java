@@ -142,23 +142,23 @@ class CompactCalendarController {
         if (attrs != null && context != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CompactCalendarView, 0, 0);
             try {
-                currentDayBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarCurrentDayBackgroundColor, currentDayBackgroundColor);
-                calenderTextColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarTextColor, calenderTextColor);
-                currentDayTextColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarCurrentDayTextColor, calenderTextColor);
-                otherMonthDaysTextColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarOtherMonthDaysTextColor, otherMonthDaysTextColor);
-                currentSelectedDayBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarCurrentSelectedDayBackgroundColor, currentSelectedDayBackgroundColor);
-                currentSelectedDayTextColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarCurrentSelectedDayTextColor, calenderTextColor);
-                calenderBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarBackgroundColor, calenderBackgroundColor);
-                multiEventIndicatorColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarMultiEventIndicatorColor, multiEventIndicatorColor);
-                textSize = typedArray.getDimensionPixelSize(R.styleable.CompactCalendarView_compactCalendarTextSize,
+                currentDayBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_currentDayBackgroundColor, currentDayBackgroundColor);
+                calenderTextColor = typedArray.getColor(R.styleable.CompactCalendarView_textColor, calenderTextColor);
+                currentDayTextColor = typedArray.getColor(R.styleable.CompactCalendarView_currentDayTextColor, calenderTextColor);
+                otherMonthDaysTextColor = typedArray.getColor(R.styleable.CompactCalendarView_otherMonthDaysTextColor, otherMonthDaysTextColor);
+                currentSelectedDayBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_selectedDayBackgroundColor, currentSelectedDayBackgroundColor);
+                currentSelectedDayTextColor = typedArray.getColor(R.styleable.CompactCalendarView_selectedDayTextColor, calenderTextColor);
+                calenderBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_backgroundColor, calenderBackgroundColor);
+                multiEventIndicatorColor = typedArray.getColor(R.styleable.CompactCalendarView_multiEventIndicatorColor, multiEventIndicatorColor);
+                textSize = typedArray.getDimensionPixelSize(R.styleable.CompactCalendarView_textSize,
                         (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, context.getResources().getDisplayMetrics()));
-                targetHeight = typedArray.getDimensionPixelSize(R.styleable.CompactCalendarView_compactCalendarTargetHeight,
+                targetHeight = typedArray.getDimensionPixelSize(R.styleable.CompactCalendarView_targetHeight,
                         (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, targetHeight, context.getResources().getDisplayMetrics()));
-                eventIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_compactCalendarEventIndicatorStyle, SMALL_INDICATOR);
-                currentDayIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_compactCalendarCurrentDayIndicatorStyle, FILL_LARGE_INDICATOR);
-                currentSelectedDayIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_compactCalendarCurrentSelectedDayIndicatorStyle, FILL_LARGE_INDICATOR);
-                displayOtherMonthDays = typedArray.getBoolean(R.styleable.CompactCalendarView_compactCalendarDisplayOtherMonthDays, displayOtherMonthDays);
-                shouldSelectFirstDayOfMonthOnScroll = typedArray.getBoolean(R.styleable.CompactCalendarView_compactCalendarShouldSelectFirstDayOfMonthOnScroll, shouldSelectFirstDayOfMonthOnScroll);
+                eventIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_eventIndicatorStyle, SMALL_INDICATOR);
+                currentDayIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_currentDayIndicatorStyle, FILL_LARGE_INDICATOR);
+                currentSelectedDayIndicatorStyle = typedArray.getInt(R.styleable.CompactCalendarView_selectedDayIndicatorStyle, FILL_LARGE_INDICATOR);
+                displayOtherMonthDays = typedArray.getBoolean(R.styleable.CompactCalendarView_displayOtherMonthDays, displayOtherMonthDays);
+                shouldSelectFirstDayOfMonthOnScroll = typedArray.getBoolean(R.styleable.CompactCalendarView_shouldSelectFirstDayOfMonthOnScroll, shouldSelectFirstDayOfMonthOnScroll);
             } finally {
                 typedArray.recycle();
             }
