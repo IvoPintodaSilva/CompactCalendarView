@@ -18,20 +18,29 @@
     </attr>
 
     <declare-styleable name="CompactCalendarView">
-        <attr name="textSize" format="dimension"/>
+        <attr name="targetHeight" format="dimension"/>
         <attr name="backgroundColor" format="color"/>
+
+        <attr name="daysTextSize" format="dimension"/>
+        <attr name="daysTextColor" format="color"/>
+
+        <attr name="weekDaysTextSize" format="dimension"/>
+        <attr name="weekDaysTextColor" format="color"/>
+
         <attr name="currentDayBackgroundColor" format="color"/>
         <attr name="currentDayTextColor" format="color"/>
+        <attr name="currentDayIndicatorStyle"/>
+
         <attr name="selectedDayBackgroundColor" format="color"/>
         <attr name="selectedDayTextColor" format="color"/>
-        <attr name="textColor" format="color"/>
-        <attr name="multiEventIndicatorColor" format="color"/>
-        <attr name="targetHeight" format="dimension"/>
-        <attr name="eventIndicatorStyle"/>
-        <attr name="currentDayIndicatorStyle"/>
         <attr name="selectedDayIndicatorStyle"/>
+
+        <attr name="eventIndicatorStyle"/>
+
+        <attr name="multiEventIndicatorColor" format="color"/>
+
         <attr name="displayOtherMonthDays" format="boolean"/>
-        <attr name="shouldSelectFirstDayOfMonthOnScroll" format="boolean"/>
         <attr name="otherMonthDaysTextColor" format="color"/>
+        <attr name="shouldSelectFirstDayOfMonthOnScroll" format="boolean"/>
     </declare-styleable>
 </resources>
